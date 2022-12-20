@@ -28,12 +28,12 @@ class UserController extends Controller
         return view('users.create');
     }
 
-    public function store(StoreUpdateUserFormRequest $request){
+    public function store(Request $request){
         
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
 
-        User::create($data);
+        $user = User::create($data);
 
         return redirect()->route('users.index');
         //return redirect()->route('users.index');
@@ -43,5 +43,27 @@ class UserController extends Controller
         //$user->name = $request->email;    
         //$user->name = $request->password;    
         //$user->save();
+    }
+
+    public function edit ($id) {
+        if (!$user = User::find($id))
+            return redirect()->route('users.index');
+
+        return view('users.edit', compact('user'));
+    }
+
+    public function update (StoreUpdateUserFormRequest $request, $id) {
+
+        new Request; 
+        if (!$user = User::find($id))
+            return redirect()->route('users.index');
+        
+        $data = $request->only('name', 'email');
+        if($request->password)
+            $data['password'] = bcrypt($request->password);
+
+        $user->update($data );
+
+        return redirect()->route('users.index');
     }
 }
