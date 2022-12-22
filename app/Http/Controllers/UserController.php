@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUpdateUserFormRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {
@@ -54,8 +55,7 @@ class UserController extends Controller
 
     public function update (StoreUpdateUserFormRequest $request, $id) {
 
-        new Request; 
-        if (!$user = User::find($id))
+        if (!$user = User::find($id)) 
             return redirect()->route('users.index');
         
         $data = $request->only('name', 'email');
@@ -63,6 +63,16 @@ class UserController extends Controller
             $data['password'] = bcrypt($request->password);
 
         $user->update($data );
+
+        return redirect()->route('users.index');
+    }
+
+    public function destroy($id){
+
+        if (!$user = User::find($id))
+            return redirect()->route('users.index');
+
+        $user->delete();
 
         return redirect()->route('users.index');
     }

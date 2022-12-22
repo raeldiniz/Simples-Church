@@ -14,9 +14,9 @@
     @endif
     <form action="{{ route('users.store') }}" method="post">
         @csrf
-        <input type="text" name="name" id="" placeholder="Nome: ">
-        <input type="email" name="email" id="" placeholder="E-mail: ">
-        <input type="password" name="password" id="" placeholder="Senha: ">
+        <input type="text" name="name" id="" placeholder="Nome: " value="{{ old('name') }}" required>
+        <input type="email" name="email" id="" placeholder="E-mail: " value="{{old('email') }}" required>
+        <input type="password" name="password" id="" placeholder="Senha: " required>
         <button type="submit">
                 Enviar
         </button>

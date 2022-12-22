@@ -29,19 +29,19 @@ class StoreUpdateUserFormRequest extends FormRequest
         $rules = [
             'name' => 'required|string|max:255|min:3',
             'email' => [
-                'require',
+                'required',
                 'email',
-                'unique:users,email,{$id},id',
+                "unique:users,email,{$id},id",
             ],
             'password' => [
-                'require',
+                'required',
                 'min:6',
                 'max:15',
             ]
         ];
 
         if($this->method('PUT')) {
-            $RULES['password'] = ['nullable',
+            $rules['password'] = ['nullable',
             'min:6',
             'max:15',
             ];

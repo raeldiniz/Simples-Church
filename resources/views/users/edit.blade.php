@@ -15,9 +15,9 @@
     <form action="{{ route('users.update', $user->id) }}" method="post">
         @method('PUT')
         @csrf
-        <input type="text" name="name" id="" placeholder="Nome: " value="{{ $user->name }}">
-        <input type="email" name="email" id="" placeholder="E-mail: " value="{{ $user->email }}">
-        <input type="password" name="password" id="" placeholder="Senha: ">
+        <input type="text" name="name" id="" placeholder="Nome: " value="{{ $user->name }}" required>
+        <input type="email" name="email" id="" placeholder="E-mail: " value="{{ $user->email }}" required>
+        <input type="password" name="password" id="" placeholder="Senha: " required>
         <button type="submit">
                 Enviar
         </button>
